@@ -1,0 +1,1030 @@
+Terminals unused in grammar
+
+   leftBracket
+   rightBracket
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: block
+
+    2 block: beginVar statementList endVar
+
+    3 statementList: statement statementList
+    4              | statement
+
+    5 statement: declarator semiColon
+    6          | assignment semiColon
+    7          | conditional
+    8          | loop
+    9          | print semiColon
+
+   10 declarator: langTypes variableList
+
+   11 assignment: variable assigment expression
+   12           | variable position expression assigment expression
+
+   13 conditional: ifVar openParenthesis cond closeParenthesis thenVar block
+
+   14 loop: whileVar openParenthesis cond closeParenthesis doVar block
+
+   15 print: printVar expressionList
+
+   16 variableList: variable
+   17             | variable comma variableList
+
+   18 expressionList: expression
+   19               | expression comma expressionList
+
+   20 variable: identifier
+
+   21 expression: expression plus expression
+   22           | expression minus expression
+   23           | expression multiply expression
+   24           | expression divide expression
+   25           | expression dotProduct expression
+   26           | openParenthesis expression closeParenthesis
+   27           | variable
+   28           | number
+   29           | variable position expression
+
+   30 cond: expression ops expression
+
+   31 ops: greaterThan
+   32    | lessThan
+   33    | lessEqualThan
+   34    | greateEqualsThan
+   35    | notEquals
+   36    | equals
+
+   37 identifier: id
+
+   38 number: numRegex
+   39       | minus numRegex
+   40       | arrRegex
+
+   41 langTypes: intVar
+   42          | arrVar
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+beginVar (258) 2
+endVar (259) 2
+numRegex (260) 38 39
+id (261) 37
+arrRegex (262) 40
+intVar (263) 41
+arrVar (264) 42
+leftBracket (265)
+rightBracket (266)
+openParenthesis (267) 13 14 26
+closeParenthesis (268) 13 14 26
+semiColon (269) 5 6 9
+assigment (270) 11 12
+position (271) 12 29
+comma (272) 17 19
+dotProduct (273) 25
+plus (274) 21
+minus (275) 22 39
+multiply (276) 23
+divide (277) 24
+greaterThan (278) 31
+lessThan (279) 32
+lessEqualThan (280) 33
+greateEqualsThan (281) 34
+notEquals (282) 35
+equals (283) 36
+whileVar (284) 14
+doVar (285) 14
+ifVar (286) 13
+thenVar (287) 13
+printVar (288) 15
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+program (35)
+    on left: 1, on right: 0
+block (36)
+    on left: 2, on right: 1 13 14
+statementList (37)
+    on left: 3 4, on right: 2 3
+statement (38)
+    on left: 5 6 7 8 9, on right: 3 4
+declarator (39)
+    on left: 10, on right: 5
+assignment (40)
+    on left: 11 12, on right: 6
+conditional (41)
+    on left: 13, on right: 7
+loop (42)
+    on left: 14, on right: 8
+print (43)
+    on left: 15, on right: 9
+variableList (44)
+    on left: 16 17, on right: 10 17
+expressionList (45)
+    on left: 18 19, on right: 15 19
+variable (46)
+    on left: 20, on right: 11 12 16 17 27 29
+expression (47)
+    on left: 21 22 23 24 25 26 27 28 29, on right: 11 12 18 19 21 22
+    23 24 25 26 29 30
+cond (48)
+    on left: 30, on right: 13 14
+ops (49)
+    on left: 31 32 33 34 35 36, on right: 30
+identifier (50)
+    on left: 37, on right: 20
+number (51)
+    on left: 38 39 40, on right: 28
+langTypes (52)
+    on left: 41 42, on right: 10
+
+
+state 0
+
+    0 $accept: . program $end
+
+    beginVar  shift, and go to state 1
+
+    program  go to state 2
+    block    go to state 3
+
+
+state 1
+
+    2 block: beginVar . statementList endVar
+
+    id        shift, and go to state 4
+    intVar    shift, and go to state 5
+    arrVar    shift, and go to state 6
+    whileVar  shift, and go to state 7
+    ifVar     shift, and go to state 8
+    printVar  shift, and go to state 9
+
+    statementList  go to state 10
+    statement      go to state 11
+    declarator     go to state 12
+    assignment     go to state 13
+    conditional    go to state 14
+    loop           go to state 15
+    print          go to state 16
+    variable       go to state 17
+    identifier     go to state 18
+    langTypes      go to state 19
+
+
+state 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 20
+
+
+state 3
+
+    1 program: block .
+
+    $default  reduce using rule 1 (program)
+
+
+state 4
+
+   37 identifier: id .
+
+    $default  reduce using rule 37 (identifier)
+
+
+state 5
+
+   41 langTypes: intVar .
+
+    $default  reduce using rule 41 (langTypes)
+
+
+state 6
+
+   42 langTypes: arrVar .
+
+    $default  reduce using rule 42 (langTypes)
+
+
+state 7
+
+   14 loop: whileVar . openParenthesis cond closeParenthesis doVar block
+
+    openParenthesis  shift, and go to state 21
+
+
+state 8
+
+   13 conditional: ifVar . openParenthesis cond closeParenthesis thenVar block
+
+    openParenthesis  shift, and go to state 22
+
+
+state 9
+
+   15 print: printVar . expressionList
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    expressionList  go to state 27
+    variable        go to state 28
+    expression      go to state 29
+    identifier      go to state 18
+    number          go to state 30
+
+
+state 10
+
+    2 block: beginVar statementList . endVar
+
+    endVar  shift, and go to state 31
+
+
+state 11
+
+    3 statementList: statement . statementList
+    4              | statement .
+
+    id        shift, and go to state 4
+    intVar    shift, and go to state 5
+    arrVar    shift, and go to state 6
+    whileVar  shift, and go to state 7
+    ifVar     shift, and go to state 8
+    printVar  shift, and go to state 9
+
+    $default  reduce using rule 4 (statementList)
+
+    statementList  go to state 32
+    statement      go to state 11
+    declarator     go to state 12
+    assignment     go to state 13
+    conditional    go to state 14
+    loop           go to state 15
+    print          go to state 16
+    variable       go to state 17
+    identifier     go to state 18
+    langTypes      go to state 19
+
+
+state 12
+
+    5 statement: declarator . semiColon
+
+    semiColon  shift, and go to state 33
+
+
+state 13
+
+    6 statement: assignment . semiColon
+
+    semiColon  shift, and go to state 34
+
+
+state 14
+
+    7 statement: conditional .
+
+    $default  reduce using rule 7 (statement)
+
+
+state 15
+
+    8 statement: loop .
+
+    $default  reduce using rule 8 (statement)
+
+
+state 16
+
+    9 statement: print . semiColon
+
+    semiColon  shift, and go to state 35
+
+
+state 17
+
+   11 assignment: variable . assigment expression
+   12           | variable . position expression assigment expression
+
+    assigment  shift, and go to state 36
+    position   shift, and go to state 37
+
+
+state 18
+
+   20 variable: identifier .
+
+    $default  reduce using rule 20 (variable)
+
+
+state 19
+
+   10 declarator: langTypes . variableList
+
+    id  shift, and go to state 4
+
+    variableList  go to state 38
+    variable      go to state 39
+    identifier    go to state 18
+
+
+state 20
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 21
+
+   14 loop: whileVar openParenthesis . cond closeParenthesis doVar block
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 40
+    cond        go to state 41
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 22
+
+   13 conditional: ifVar openParenthesis . cond closeParenthesis thenVar block
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 40
+    cond        go to state 42
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 23
+
+   38 number: numRegex .
+
+    $default  reduce using rule 38 (number)
+
+
+state 24
+
+   40 number: arrRegex .
+
+    $default  reduce using rule 40 (number)
+
+
+state 25
+
+   26 expression: openParenthesis . expression closeParenthesis
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 43
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 26
+
+   39 number: minus . numRegex
+
+    numRegex  shift, and go to state 44
+
+
+state 27
+
+   15 print: printVar expressionList .
+
+    $default  reduce using rule 15 (print)
+
+
+state 28
+
+   27 expression: variable .
+   29           | variable . position expression
+
+    position  shift, and go to state 45
+
+    $default  reduce using rule 27 (expression)
+
+
+state 29
+
+   18 expressionList: expression .
+   19               | expression . comma expressionList
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    comma       shift, and go to state 46
+    dotProduct  shift, and go to state 47
+    plus        shift, and go to state 48
+    minus       shift, and go to state 49
+    multiply    shift, and go to state 50
+    divide      shift, and go to state 51
+
+    $default  reduce using rule 18 (expressionList)
+
+
+state 30
+
+   28 expression: number .
+
+    $default  reduce using rule 28 (expression)
+
+
+state 31
+
+    2 block: beginVar statementList endVar .
+
+    $default  reduce using rule 2 (block)
+
+
+state 32
+
+    3 statementList: statement statementList .
+
+    $default  reduce using rule 3 (statementList)
+
+
+state 33
+
+    5 statement: declarator semiColon .
+
+    $default  reduce using rule 5 (statement)
+
+
+state 34
+
+    6 statement: assignment semiColon .
+
+    $default  reduce using rule 6 (statement)
+
+
+state 35
+
+    9 statement: print semiColon .
+
+    $default  reduce using rule 9 (statement)
+
+
+state 36
+
+   11 assignment: variable assigment . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 52
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 37
+
+   12 assignment: variable position . expression assigment expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 53
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 38
+
+   10 declarator: langTypes variableList .
+
+    $default  reduce using rule 10 (declarator)
+
+
+state 39
+
+   16 variableList: variable .
+   17             | variable . comma variableList
+
+    comma  shift, and go to state 54
+
+    $default  reduce using rule 16 (variableList)
+
+
+state 40
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+   30 cond: expression . ops expression
+
+    dotProduct        shift, and go to state 47
+    plus              shift, and go to state 48
+    minus             shift, and go to state 49
+    multiply          shift, and go to state 50
+    divide            shift, and go to state 51
+    greaterThan       shift, and go to state 55
+    lessThan          shift, and go to state 56
+    lessEqualThan     shift, and go to state 57
+    greateEqualsThan  shift, and go to state 58
+    notEquals         shift, and go to state 59
+    equals            shift, and go to state 60
+
+    ops  go to state 61
+
+
+state 41
+
+   14 loop: whileVar openParenthesis cond . closeParenthesis doVar block
+
+    closeParenthesis  shift, and go to state 62
+
+
+state 42
+
+   13 conditional: ifVar openParenthesis cond . closeParenthesis thenVar block
+
+    closeParenthesis  shift, and go to state 63
+
+
+state 43
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+   26           | openParenthesis expression . closeParenthesis
+
+    closeParenthesis  shift, and go to state 64
+    dotProduct        shift, and go to state 47
+    plus              shift, and go to state 48
+    minus             shift, and go to state 49
+    multiply          shift, and go to state 50
+    divide            shift, and go to state 51
+
+
+state 44
+
+   39 number: minus numRegex .
+
+    $default  reduce using rule 39 (number)
+
+
+state 45
+
+   29 expression: variable position . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 65
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 46
+
+   19 expressionList: expression comma . expressionList
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    expressionList  go to state 66
+    variable        go to state 28
+    expression      go to state 29
+    identifier      go to state 18
+    number          go to state 30
+
+
+state 47
+
+   25 expression: expression dotProduct . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 67
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 48
+
+   21 expression: expression plus . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 68
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 49
+
+   22 expression: expression minus . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 69
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 50
+
+   23 expression: expression multiply . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 70
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 51
+
+   24 expression: expression divide . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 71
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 52
+
+   11 assignment: variable assigment expression .
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    dotProduct  shift, and go to state 47
+    plus        shift, and go to state 48
+    minus       shift, and go to state 49
+    multiply    shift, and go to state 50
+    divide      shift, and go to state 51
+
+    $default  reduce using rule 11 (assignment)
+
+
+state 53
+
+   12 assignment: variable position expression . assigment expression
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    assigment   shift, and go to state 72
+    dotProduct  shift, and go to state 47
+    plus        shift, and go to state 48
+    minus       shift, and go to state 49
+    multiply    shift, and go to state 50
+    divide      shift, and go to state 51
+
+
+state 54
+
+   17 variableList: variable comma . variableList
+
+    id  shift, and go to state 4
+
+    variableList  go to state 73
+    variable      go to state 39
+    identifier    go to state 18
+
+
+state 55
+
+   31 ops: greaterThan .
+
+    $default  reduce using rule 31 (ops)
+
+
+state 56
+
+   32 ops: lessThan .
+
+    $default  reduce using rule 32 (ops)
+
+
+state 57
+
+   33 ops: lessEqualThan .
+
+    $default  reduce using rule 33 (ops)
+
+
+state 58
+
+   34 ops: greateEqualsThan .
+
+    $default  reduce using rule 34 (ops)
+
+
+state 59
+
+   35 ops: notEquals .
+
+    $default  reduce using rule 35 (ops)
+
+
+state 60
+
+   36 ops: equals .
+
+    $default  reduce using rule 36 (ops)
+
+
+state 61
+
+   30 cond: expression ops . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 74
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 62
+
+   14 loop: whileVar openParenthesis cond closeParenthesis . doVar block
+
+    doVar  shift, and go to state 75
+
+
+state 63
+
+   13 conditional: ifVar openParenthesis cond closeParenthesis . thenVar block
+
+    thenVar  shift, and go to state 76
+
+
+state 64
+
+   26 expression: openParenthesis expression closeParenthesis .
+
+    $default  reduce using rule 26 (expression)
+
+
+state 65
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+   29           | variable position expression .
+
+    $default  reduce using rule 29 (expression)
+
+
+state 66
+
+   19 expressionList: expression comma expressionList .
+
+    $default  reduce using rule 19 (expressionList)
+
+
+state 67
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+   25           | expression dotProduct expression .
+
+    plus      shift, and go to state 48
+    minus     shift, and go to state 49
+    multiply  shift, and go to state 50
+    divide    shift, and go to state 51
+
+    $default  reduce using rule 25 (expression)
+
+
+state 68
+
+   21 expression: expression . plus expression
+   21           | expression plus expression .
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    $default  reduce using rule 21 (expression)
+
+
+state 69
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   22           | expression minus expression .
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    $default  reduce using rule 22 (expression)
+
+
+state 70
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   23           | expression multiply expression .
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    plus   shift, and go to state 48
+    minus  shift, and go to state 49
+
+    $default  reduce using rule 23 (expression)
+
+
+state 71
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   24           | expression divide expression .
+   25           | expression . dotProduct expression
+
+    plus   shift, and go to state 48
+    minus  shift, and go to state 49
+
+    $default  reduce using rule 24 (expression)
+
+
+state 72
+
+   12 assignment: variable position expression assigment . expression
+
+    numRegex         shift, and go to state 23
+    id               shift, and go to state 4
+    arrRegex         shift, and go to state 24
+    openParenthesis  shift, and go to state 25
+    minus            shift, and go to state 26
+
+    variable    go to state 28
+    expression  go to state 77
+    identifier  go to state 18
+    number      go to state 30
+
+
+state 73
+
+   17 variableList: variable comma variableList .
+
+    $default  reduce using rule 17 (variableList)
+
+
+state 74
+
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+   30 cond: expression ops expression .
+
+    dotProduct  shift, and go to state 47
+    plus        shift, and go to state 48
+    minus       shift, and go to state 49
+    multiply    shift, and go to state 50
+    divide      shift, and go to state 51
+
+    $default  reduce using rule 30 (cond)
+
+
+state 75
+
+   14 loop: whileVar openParenthesis cond closeParenthesis doVar . block
+
+    beginVar  shift, and go to state 1
+
+    block  go to state 78
+
+
+state 76
+
+   13 conditional: ifVar openParenthesis cond closeParenthesis thenVar . block
+
+    beginVar  shift, and go to state 1
+
+    block  go to state 79
+
+
+state 77
+
+   12 assignment: variable position expression assigment expression .
+   21 expression: expression . plus expression
+   22           | expression . minus expression
+   23           | expression . multiply expression
+   24           | expression . divide expression
+   25           | expression . dotProduct expression
+
+    dotProduct  shift, and go to state 47
+    plus        shift, and go to state 48
+    minus       shift, and go to state 49
+    multiply    shift, and go to state 50
+    divide      shift, and go to state 51
+
+    $default  reduce using rule 12 (assignment)
+
+
+state 78
+
+   14 loop: whileVar openParenthesis cond closeParenthesis doVar block .
+
+    $default  reduce using rule 14 (loop)
+
+
+state 79
+
+   13 conditional: ifVar openParenthesis cond closeParenthesis thenVar block .
+
+    $default  reduce using rule 13 (conditional)
